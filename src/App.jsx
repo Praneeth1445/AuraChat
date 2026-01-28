@@ -12,8 +12,13 @@ function App() {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
-      setLoading(false);
+      try {
+        setUser(currentUser);
+        setLoading(false);
+      } catch (error) {
+        console.error("Auth error:", error);
+        setLoading(false);
+      }
     });
     return unsubscribe;
   }, []);
